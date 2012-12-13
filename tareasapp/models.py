@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=64)
+    descripcion = models.CharField(default="", max_length=64)
     slug = models.SlugField(unique=True)
 
     class Meta:

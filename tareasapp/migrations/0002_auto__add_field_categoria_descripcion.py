@@ -8,36 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Categoria'
-        db.create_table('tareasapp_categoria', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('nombre', self.gf('django.db.models.fields.CharField')(max_length=64)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=50)),
-        ))
-        db.send_create_signal('tareasapp', ['Categoria'])
-
-        # Adding model 'Tarea'
-        db.create_table('tareasapp_tarea', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=50)),
-            ('titulo', self.gf('django.db.models.fields.CharField')(max_length=64)),
-            ('descripcion', self.gf('django.db.models.fields.TextField')()),
-            ('estado', self.gf('django.db.models.fields.CharField')(default=u'P', max_length=1)),
-            ('fecha_creacion', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('fecha_limite', self.gf('django.db.models.fields.DateTimeField')()),
-            ('fecha_realizacion', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('categoria', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['tareasapp.Categoria'], null=True, blank=True)),
-            ('usuario', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-        ))
-        db.send_create_signal('tareasapp', ['Tarea'])
+        # Adding field 'Categoria.descripcion'
+        db.add_column('tareasapp_categoria', 'descripcion',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=64),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Categoria'
-        db.delete_table('tareasapp_categoria')
-
-        # Deleting model 'Tarea'
-        db.delete_table('tareasapp_tarea')
+        # Deleting field 'Categoria.descripcion'
+        db.delete_column('tareasapp_categoria', 'descripcion')
 
 
     models = {
@@ -79,6 +58,7 @@ class Migration(SchemaMigration):
         },
         'tareasapp.categoria': {
             'Meta': {'object_name': 'Categoria'},
+            'descripcion': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '64'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'nombre': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'})
