@@ -23,5 +23,5 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout_then_login',
     name='logout'),
     #url(r'^register/$', 'tareasapp.views.NuevoUsuario', name='NuevoUsuario'),
-    url(r'^register/$', 'NuevoUsuario', name='NuevoUsuario'),
+    url(r'^register/$', 'proyecto_tareas.views.NuevoUsuario', name='NuevoUsuario'),
 )

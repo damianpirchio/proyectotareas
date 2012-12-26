@@ -19,6 +19,6 @@ def NuevoUsuario(request):
             form.save()
             url = reverse('index')
             return HttpResponseRedirect(url)
-        else:
-            form = UserCreationForm()
+    else:
+        form = UserCreationForm()
         return TemplateResponse(request, 'registration/register.html', {'form': form, })
