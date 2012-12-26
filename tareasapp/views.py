@@ -1,7 +1,7 @@
 # Create your views here.
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+
 from django.core.urlresolvers import reverse
 
 from django.http import HttpResponse
@@ -14,6 +14,8 @@ from django.template.response import TemplateResponse
 
 from tareasapp.forms import TareaForm
 from tareasapp.models import Tarea
+from django.template import defaultfilters
+from django.utils import timezone
 
 
 def index(request):
@@ -31,9 +33,15 @@ def NuevaTarea(request):
         # Procesamos el form
         form = TareaForm(request.POST)
         if form.is_valid():
-            tarea = form.save()
-            #url = reverse('post-detail', kwargs={'post_id': post.id})
-            #return HttpResponseRedirect(url)
+            tarea = form.save(commit=False)
+            tarea.slug = defaultfilters.slugify(tarea.titulo)
+            tarea.estado = u'P'
+            tarea.fecha_realizacion = None
+            tarea.fecha_creacion = timezone.now()
+            tarea.usuario = request.user
+            tarea.save()
+            url = reverse('ListaTareas', )
+            return HttpResponseRedirect(url)
     else:
         #form = TareaForm(initial={'usuario': 'Alguien'})
         form = TareaForm()

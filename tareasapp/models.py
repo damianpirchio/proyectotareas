@@ -28,9 +28,9 @@ class Tarea(models.Model):
     titulo = models.CharField(max_length=64)
     descripcion = models.TextField()
     estado = models.CharField(max_length=1, default=u'P', choices=TIPOS_DE_ESTADO)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    fecha_limite = models.DateTimeField(null=False, blank=False)
-    fecha_realizacion = models.DateTimeField(null=True, blank=True)
+    fecha_creacion = models.DateField(auto_now_add=True)
+    fecha_limite = models.DateField(null=False, blank=False)
+    fecha_realizacion = models.DateField(null=True, blank=True)
     categoria = models.ForeignKey(Categoria, null=True, blank=True)
     usuario = models.ForeignKey(User)
 

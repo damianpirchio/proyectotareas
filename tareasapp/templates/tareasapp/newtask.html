@@ -4,7 +4,7 @@
 {% block htmltitle %}{{ block.super }} | Nueva Tarea{% endblock %}
 
 {% block main %}
-Usuario {{ user }} ! |
+Crear Nueva Tarea para {{ user }}
 
 <fieldset>
 <form action="" method="post">{% csrf_token %}

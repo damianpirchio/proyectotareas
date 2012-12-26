@@ -7,6 +7,7 @@ from tareasapp.models import Tarea
 #from django.forms.widgets import SplitDateTimeWidget
 from django.forms.extras.widgets import SelectDateWidget
 
+
 class TareaForm(ModelForm):
 
     class Meta:
@@ -17,6 +18,8 @@ class TareaForm(ModelForm):
                     #'fecha_limite': SplitDateTimeWidget(),
                   }
         exclude = (
+                    "slug",
+                    "usuario",
                     "fecha_creacion",
                     "fecha_realizacion",
                     "estado",

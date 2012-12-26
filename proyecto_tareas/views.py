@@ -17,7 +17,7 @@ def NuevoUsuario(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            url = reverse('index')
+            url = reverse('login')
             return HttpResponseRedirect(url)
     else:
         form = UserCreationForm()
