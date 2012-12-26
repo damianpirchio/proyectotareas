@@ -6,7 +6,6 @@
     <table>
     <tr>
         <td>Titulo</td>
-        <td>Descripcion</td>
         <td>Estado</td>
         <td>Fecha Creacion</td>
         <td>Fecha Límite</td>
@@ -15,11 +14,13 @@
     {% for tarea in tareas %}
     <tr>
         <td>{{ tarea.titulo }}</td>
-        <td>{{ tarea.descripcion }}</td>
         <td>{{ tarea.estado }}</td>
         <td>{{ tarea.fecha_creacion }}</td>
         <td>{{ tarea.fecha_limite }}</td>
         <td>{{ tarea.fecha_realizacion }}</td>
+        <td><a href="">Detalle</a></td>
+        <td><a href="">Modificar</a></td>
+        <td><a href="">Eliminar</a></td>
     </tr>
     {% endfor %}
     </table>

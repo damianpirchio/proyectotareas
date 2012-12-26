@@ -8,8 +8,6 @@ urlpatterns = patterns('tareasapp.views',
     #url(r'^(?P<post_id>\d+)/$', 'post_detail', name='post-detail'),
     #url(r'^new-post/$', 'new_post', name='new-post'),
     url(r'^$', 'index', name='index'),
-    url(r'^$', 'NuevoUsuario', name='NuevoUsuario'),
-    url(r'^login/register$', 'NuevoUsuario'),
     url(r'^newtask/$', 'NuevaTarea', name='NuevaTarea'),
     url(r'^tasklist/$', 'ListaTareas', name='ListaTareas'),
 )

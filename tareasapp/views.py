@@ -45,13 +45,3 @@ def ListaTareas(request):
     return TemplateResponse(request, 'tareasapp/tasklist.html', {'tareas': tareas, })
 
 
-def NuevoUsuario(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            #url = reverse('index')
-            #return HttpResponseRedirect(url)
-        else:
-            form = UserCreationForm()
-        return TemplateResponse(request, 'register.html', {'form': form, })
