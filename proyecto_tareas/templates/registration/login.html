@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+    <form action="{% url login %}" method="POST">
+        {% csrf_token %}
+        <table >
+        <tr><td align="left">
+        {{ form.as_table }}
+        </td></tr>
+
+        <tr>
+            <td ><input type="button" value="Registrarse" onClick="location.href='{% url NuevoUsuario %}'"/></td>
+            <td ><input type="submit" value="Ingresar" /></td>
+        </tr>
+</table>
+        </form>
+
+{% endblock %}
+

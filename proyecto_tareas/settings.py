@@ -85,6 +85,10 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates'),
 )
 
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/tareasapp'
+#REGISTER_URL = '/register'
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',

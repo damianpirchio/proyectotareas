@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block htmltitle %}{{ block.super }} | {{ tarea.titulo }}{% endblock %}
+
+{% block main %}
+    <table>
+    <tr>
+        <td>Titulo</td>
+        <td>Descripcion</td>
+        <td>Estado</td>
+        <td>Fecha Creacion</td>
+        <td>Fecha Límite</td>
+        <td>Fecha Realizacion</td>
+    </tr>
+    {% for tarea in tareas %}
+    <tr>
+        <td>{{ tarea.titulo }}</td>
+        <td>{{ tarea.descripcion }}</td>
+        <td>{{ tarea.estado }}</td>
+        <td>{{ tarea.fecha_creacion }}</td>
+        <td>{{ tarea.fecha_limite }}</td>
+        <td>{{ tarea.fecha_realizacion }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block htmltitle %}{{ block.super }} | Nuevo post{% endblock %}
+
+{% block main %}
+Bienvenido {{ user }} ! |
+
+<p><a href="newtask">Nueva Tarea</a></p>
+
+<p><a href="tasklist">Listar Tareas</a></p>
+
+<p><a href="{% url logout %}">Despedirse</a></p>
+
+<!--
+<form action="" method="post">{% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Crear" />
+</form>
+-->
+{% endblock main %}
