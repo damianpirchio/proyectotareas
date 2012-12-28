@@ -6,11 +6,14 @@
 {% block main %}
 Bienvenido {{ user }} ! |
 
-<p><a href="newtask">Nueva Tarea</a></p>
-
-<p><a href="tasklist">Listar Tareas</a></p>
-
-<p><a href="{% url logout %}">Despedirse</a></p>
+<div id='cssmenu'>
+<ul>
+   <li class='active '><a href="newtask"><span>Nueva Tarea</span></a></li>
+   <li><a href="{% url NuevaCategoria %}"><span>Nueva Categoria</span></a></li>
+   <li><a href="tasklist"><span>Listar Tareas</span></a></li>
+   <li><a href="{% url logout %}"><span>Despedirse</span></a></li>
+</ul>
+</div>
 
 <!--
 <form action="" method="post">{% csrf_token %}

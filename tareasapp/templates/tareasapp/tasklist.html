@@ -4,12 +4,24 @@
 
 {% block main %}
     <table>
+
+    <tr><td>Filtrar por Categoria
+        <SELECT NAME="Categoria">
+            {% for categoria in categorias %}
+              <OPTION>{{ categoria.nombre }}
+            {% endfor %}
+
+        </SELECT>
+    </td></tr>
     <tr>
         <td>Titulo</td>
         <td>Estado</td>
         <td>Fecha Creacion</td>
         <td>Fecha Límite</td>
         <td>Fecha Realizacion</td>
+        <td>Detalle</td>
+        <td>Modificar</td>
+        <td>Eliminar</td>
     </tr>
     {% for tarea in tareas %}
     <tr>
@@ -18,10 +30,16 @@
         <td>{{ tarea.fecha_creacion }}</td>
         <td>{{ tarea.fecha_limite }}</td>
         <td>{{ tarea.fecha_realizacion }}</td>
-        <td><a href="">Detalle</a></td>
-        <td><a href="">Modificar</a></td>
-        <td><a href="">Eliminar</a></td>
+        <td><a href="{% url DetalleTarea tarea.id %}">
+            <img src="{{ STATIC_URL }}images/search.png" /></a></td>
+        <td><img src="{{ STATIC_URL }}images/edit.png" /></td>
+        <td><a href="{% url BorrarTarea tarea.id %}">
+            <img src="{{ STATIC_URL }}images/delete.png" /></a></td>
     </tr>
     {% endfor %}
     </table>
+    <a href="{% url index %}">Volver</a>
 {% endblock %}
+
+
+

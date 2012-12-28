@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block htmltitle %}{{ block.super }} | Nueva Categoria{% endblock %}
+
+{% block main %}
+Crear Nueva Categoria
+
+<fieldset>
+<form action="" method="post">{% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Crear Categoria" />
+</form>
+</fieldset>
+{% endblock main %}

@@ -3,7 +3,7 @@
 from django.forms import ModelForm
 
 from tareasapp.models import Tarea
-
+from tareasapp.models import Categoria
 #from django.forms.widgets import SplitDateTimeWidget
 from django.forms.extras.widgets import SelectDateWidget
 
@@ -24,3 +24,13 @@ class TareaForm(ModelForm):
                     "fecha_realizacion",
                     "estado",
                  )
+
+
+class CategoriaForm(ModelForm):
+
+    class Meta:
+
+        model = Categoria
+        exclude = (
+                    "slug",
+            )

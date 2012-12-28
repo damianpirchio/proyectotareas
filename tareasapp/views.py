@@ -13,9 +13,11 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 
 from tareasapp.forms import TareaForm
-from tareasapp.models import Tarea
+from tareasapp.forms import CategoriaForm
+from tareasapp.models import Tarea, Categoria
 from django.template import defaultfilters
 from django.utils import timezone
+from django.shortcuts import redirect
 
 
 def index(request):
@@ -43,13 +45,35 @@ def NuevaTarea(request):
             url = reverse('ListaTareas', )
             return HttpResponseRedirect(url)
     else:
-        #form = TareaForm(initial={'usuario': 'Alguien'})
         form = TareaForm()
     return TemplateResponse(request, 'tareasapp/newtask.html', {'form': form, })
 
 
+def NuevaCategoria(request):
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST)
+        if form.is_valid():
+            categoria = form.save(commit=False)
+            categoria.slug = defaultfilters.slugify(categoria.nombre)
+            categoria.save()
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        form = CategoriaForm()
+    return TemplateResponse(request, 'tareasapp/newcategory.html', {'form': form, })
+
+
 def ListaTareas(request):
-    tareas = Tarea.objects.all().order_by('titulo')
-    return TemplateResponse(request, 'tareasapp/tasklist.html', {'tareas': tareas, })
+    tareas = Tarea.objects.filter(usuario=request.user).order_by('fecha_limite')
+    categorias = Categoria.objects.all()
+    return TemplateResponse(request, 'tareasapp/tasklist.html', {'tareas': tareas, 'categorias': categorias, })
 
 
+def DetalleTarea(request, tarea_id):
+    tarea = get_object_or_404(Tarea, id=tarea_id)
+    return TemplateResponse(request, 'tareasapp/taskdetail.html', {'tarea': tarea, })
+
+
+def BorrarTarea(request, tarea_id):
+    tarea = Tarea.objects.get(id=tarea_id)
+    tarea.delete()
+    return redirect("ListaTareas")
