@@ -25,7 +25,6 @@ class TareaForm(ModelForm):
                     "estado",
                  )
 
-
 class CategoriaForm(ModelForm):
 
     class Meta:
@@ -34,3 +33,14 @@ class CategoriaForm(ModelForm):
         exclude = (
                     "slug",
             )
+
+class EditarTareaForm(ModelForm):
+    class Meta:
+        model = Tarea
+        widgets = {
+                    'fecha_limite': SelectDateWidget(),
+                    'fecha_realizacion': SelectDateWidget(),
+                  }
+        exclude = ('slug',
+                    'fecha_creacion',
+                    'usuario',)

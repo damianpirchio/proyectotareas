@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+    <h1>Editar tarea</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+        <input type="submit" value="Guardar cambios" />
+        <input type="button" value="Volver" onClick="location.href='{% url ListaTareas %}'"/>
+    </form>
+{% endblock %}

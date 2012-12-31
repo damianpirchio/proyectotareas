@@ -11,5 +11,5 @@
     <p>Fecha Realizacion: {{ tarea.fecha_realizacion }}</p>
     <p>Categoria: {{ tarea.categoria }}</p>
 
-    <a href="{% url ListaTareas %}">Volver</a>
+    <input type="button" value="Volver" onClick="location.href='{% url ListaTareas %}'"/>
 {% endblock %}

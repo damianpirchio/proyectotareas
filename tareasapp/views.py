@@ -12,12 +12,13 @@ from django.shortcuts import get_object_or_404
 
 from django.template.response import TemplateResponse
 
-from tareasapp.forms import TareaForm
-from tareasapp.forms import CategoriaForm
+from tareasapp.forms import TareaForm, EditarTareaForm, CategoriaForm
 from tareasapp.models import Tarea, Categoria
 from django.template import defaultfilters
 from django.utils import timezone
 from django.shortcuts import redirect
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
 def index(request):
@@ -68,6 +69,18 @@ def ListaTareas(request):
     return TemplateResponse(request, 'tareasapp/tasklist.html', {'tareas': tareas, 'categorias': categorias, })
 
 
+def FiltrarCategoria(request, categoria_id):
+    try:
+        user = request.user
+        category = Categoria.objects.filter(id=categoria_id)
+        tareas = Tarea.objects.filter(usuario=user,
+            categoria=category).order_by('fecha_limite')
+    except tareas.DoesNotExist:
+            return render_to_response('tareasapp/tasklist.html', {'tareas': tareas, },
+            context_instance=RequestContext(request))
+    return render_to_response('tareasapp/tasklist.html', {'tareas': tareas, },
+        context_instance=RequestContext(request))
+
 def DetalleTarea(request, tarea_id):
     tarea = get_object_or_404(Tarea, id=tarea_id)
     return TemplateResponse(request, 'tareasapp/taskdetail.html', {'tarea': tarea, })
@@ -77,3 +90,16 @@ def BorrarTarea(request, tarea_id):
     tarea = Tarea.objects.get(id=tarea_id)
     tarea.delete()
     return redirect("ListaTareas")
+
+
+def EditarTarea(request, tarea_id):
+    tarea = get_object_or_404(Tarea, id=tarea_id)
+    if request.method == 'POST':
+        form = EditarTareaForm(request.POST, instance=tarea)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('ListaTareas'))
+    else:
+        form = EditarTareaForm(instance=tarea)
+    return TemplateResponse(request,
+             'tareasapp/edittask.html', {'form': form, })

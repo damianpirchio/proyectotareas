@@ -6,7 +6,7 @@
     <table>
 
     <tr><td>Filtrar por Categoria
-        <SELECT NAME="Categoria">
+        <SELECT NAME="Categoria" onchange="location.href='{% url FiltrarCategoria categoria.id %}'">
             {% for categoria in categorias %}
               <OPTION>{{ categoria.nombre }}
             {% endfor %}
@@ -32,13 +32,14 @@
         <td>{{ tarea.fecha_realizacion }}</td>
         <td><a href="{% url DetalleTarea tarea.id %}">
             <img src="{{ STATIC_URL }}images/search.png" /></a></td>
-        <td><img src="{{ STATIC_URL }}images/edit.png" /></td>
+        <td><a href="{% url EditarTarea tarea.id %}">
+            <img src="{{ STATIC_URL }}images/edit.png" /></a></td>
         <td><a href="{% url BorrarTarea tarea.id %}">
             <img src="{{ STATIC_URL }}images/delete.png" /></a></td>
     </tr>
     {% endfor %}
     </table>
-    <a href="{% url index %}">Volver</a>
+    <input type="button" value="Volver" onClick="location.href='{% url index %}'"/>
 {% endblock %}
 
 
