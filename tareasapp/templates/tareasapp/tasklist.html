@@ -4,11 +4,23 @@
 
 {% block main %}
 
+<script language="javascript">
+
+function linkTo(optVal){
+    if(optVal=="") return false;
+    window.location='{% url FiltrarCategoria %}?categoria_id='+optVal;
+}
+</script>
+
+
 Filtrar por Categoria:
 
-<SELECT NAME="Categoria" id="opciones" onchange="location.href='{% url FiltrarCategoria %}?categoria_id=document.getElementById('opciones').options[document.getElementById('opciones').selectedIndex].value'">
+
+<SELECT NAME="Categoria" id="opciones" onchange="linkTo(this.options[this.selectedIndex].value);">
+    <OPTION value="-2" >Elija Categoria</OPTION>
+    <OPTION value="-1" >Todas</OPTION>
     {% for categoria in categorias %}
-        <OPTION value="categoria.id" >{{ categoria.nombre }}</OPTION>
+        <OPTION value={{categoria.id}} >{{ categoria.nombre }}</OPTION>
     {% endfor %}
 
 </SELECT>
