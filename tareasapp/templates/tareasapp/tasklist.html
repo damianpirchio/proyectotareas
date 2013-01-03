@@ -3,18 +3,23 @@
 {% block htmltitle %}{{ block.super }} | {{ tarea.titulo }}{% endblock %}
 
 {% block main %}
+
+Filtrar por Categoria:
+
+<SELECT NAME="Categoria" id="opciones" onchange="location.href='{% url FiltrarCategoria %}?categoria_id=document.getElementById('opciones').options[document.getElementById('opciones').selectedIndex].value'">
+    {% for categoria in categorias %}
+        <OPTION value="categoria.id" >{{ categoria.nombre }}</OPTION>
+    {% endfor %}
+
+</SELECT>
+
+
+
     <table>
 
-    <tr><td>Filtrar por Categoria
-        <SELECT NAME="Categoria" onchange="location.href='{% url FiltrarCategoria categoria.id %}'">
-            {% for categoria in categorias %}
-              <OPTION>{{ categoria.nombre }}
-            {% endfor %}
-
-        </SELECT>
-    </td></tr>
-    <tr>
+       <tr>
         <td>Titulo</td>
+        <td>Categoria</td>
         <td>Estado</td>
         <td>Fecha Creacion</td>
         <td>Fecha Límite</td>
@@ -26,7 +31,16 @@
     {% for tarea in tareas %}
     <tr>
         <td>{{ tarea.titulo }}</td>
-        <td>{{ tarea.estado }}</td>
+        <td>{{ tarea.categoria }}</td>
+        <td>{% if tarea.estado == 'P' %}
+                    Pendiente
+                {% endif %}
+                {% if tarea.estado == 'C' %}
+                    Completada
+                {% endif %}
+                {% if tarea.estado == 'X' %}
+                    Cancelada
+                {% endif %}</td>
         <td>{{ tarea.fecha_creacion }}</td>
         <td>{{ tarea.fecha_limite }}</td>
         <td>{{ tarea.fecha_realizacion }}</td>

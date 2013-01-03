@@ -69,10 +69,12 @@ def ListaTareas(request):
     return TemplateResponse(request, 'tareasapp/tasklist.html', {'tareas': tareas, 'categorias': categorias, })
 
 
-def FiltrarCategoria(request, categoria_id):
+def FiltrarCategoria(request):
+    datos = request.GET
+    cat_id = datos.get('categoria_id')
     try:
         user = request.user
-        category = Categoria.objects.filter(id=categoria_id)
+        category = Categoria.objects.filter(id=cat_id)
         tareas = Tarea.objects.filter(usuario=user,
             categoria=category).order_by('fecha_limite')
     except tareas.DoesNotExist:
