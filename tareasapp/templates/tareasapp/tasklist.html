@@ -27,7 +27,7 @@ Filtrar por Categoria:
 
 
 
-    <table>
+    <table border="1" cellspacing="3" allign="center">
 
        <tr>
         <td>Titulo</td>
@@ -41,7 +41,7 @@ Filtrar por Categoria:
         <td>Eliminar</td>
     </tr>
     {% for tarea in tareas %}
-    <tr>
+    <tr align="center">
         <td>{{ tarea.titulo }}</td>
         <td>{{ tarea.categoria }}</td>
         <td>{% if tarea.estado == 'P' %}

@@ -5,7 +5,16 @@
 {% block main %}
     <h3>{{ tarea.titulo }}</h3>
     <p>Descripcion: {{ tarea.descripcion }}</p>
-    <p>Estado: {{ tarea.estado }}</p>
+    <p>Estado:
+    {% if tarea.estado == 'P' %}
+          Pendiente
+    {% endif %}
+    {% if tarea.estado == 'C' %}
+          Completada
+    {% endif %}
+    {% if tarea.estado == 'X' %}
+          Cancelada
+    {% endif %}</p>
     <p>Fecha Creacion: {{ tarea.fecha_creacion }}</p>
     <p>Fecha Limite: {{ tarea.fecha_limite }}</p>
     <p>Fecha Realizacion: {{ tarea.fecha_realizacion }}</p>

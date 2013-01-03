@@ -17,8 +17,6 @@ from tareasapp.models import Tarea, Categoria
 from django.template import defaultfilters
 from django.utils import timezone
 from django.shortcuts import redirect
-from django.shortcuts import render_to_response
-from django.template import RequestContext
 
 
 def index(request):
@@ -29,6 +27,7 @@ def index(request):
         request, 'tareasapp/index.html',)
 
 
+@login_required
 def NuevaTarea(request):
     #if not request.user.is_authenticated():
         #raise Http404
@@ -49,7 +48,7 @@ def NuevaTarea(request):
         form = TareaForm()
     return TemplateResponse(request, 'tareasapp/newtask.html', {'form': form, })
 
-
+@login_required
 def NuevaCategoria(request):
     if request.method == 'POST':
         form = CategoriaForm(request.POST)
@@ -62,43 +61,44 @@ def NuevaCategoria(request):
         form = CategoriaForm()
     return TemplateResponse(request, 'tareasapp/newcategory.html', {'form': form, })
 
-
+@login_required
 def ListaTareas(request):
     tareas = Tarea.objects.filter(usuario=request.user).order_by('fecha_limite')
     categorias = Categoria.objects.all()
     return TemplateResponse(request, 'tareasapp/tasklist.html', {'tareas': tareas, 'categorias': categorias, })
 
-
+@login_required
 def FiltrarCategoria(request):
     datos = request.GET
     cat_id = datos.get('categoria_id')
     try:
         user = request.user
+        categorias = Categoria.objects.all()
         if (cat_id == '-1'):
             category = Categoria.objects.all()
-            categorias = Categoria.objects.all()
-            tareas = Tarea.objects.filter(usuario=user,
-            categoria=category).order_by('fecha_limite')
+            tareas = Tarea.objects.filter(usuario=user, ).order_by('fecha_limite')
         else:
             category = Categoria.objects.filter(id=cat_id)
-            categorias = Categoria.objects.all()
             tareas = Tarea.objects.filter(usuario=user,
             categoria=category).order_by('fecha_limite')
     except tareas.DoesNotExist:
             return TemplateResponse(request, 'tareasapp/tasklist.html', {'tareas': tareas, 'categorias': categorias})
     return TemplateResponse(request, 'tareasapp/tasklist.html', {'tareas': tareas, 'categorias': categorias})
 
+
+@login_required
 def DetalleTarea(request, tarea_id):
     tarea = get_object_or_404(Tarea, id=tarea_id)
     return TemplateResponse(request, 'tareasapp/taskdetail.html', {'tarea': tarea, })
 
 
+@login_required
 def BorrarTarea(request, tarea_id):
     tarea = Tarea.objects.get(id=tarea_id)
     tarea.delete()
     return redirect("ListaTareas")
 
-
+@login_required
 def EditarTarea(request, tarea_id):
     tarea = get_object_or_404(Tarea, id=tarea_id)
     if request.method == 'POST':
